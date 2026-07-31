@@ -26,17 +26,18 @@ h1{font-size:1.75rem;margin:8px 0 6px}.sub{color:var(--muted);margin:0 0 12px}
 </head>
 <body>
 <div class="container">
-<nav class="nav"><a class="brand" href="index.html"><span class="brand-mark">K</span> KCN Studios</a></nav>
+<nav class="nav"><a class="brand" href="https://cdn.jsdelivr.net/gh/Evank253/KCN_SINGULARITY_MASTER@main/docs/index.html"><span class="brand-mark">K</span> KCN Studios</a></nav>
 <h1>Choose your studio</h1>
 <p class="sub">Enter a domain workspace. Jarvis coaches inside each studio.</p>
 <div class="studio-grid" id="grid"></div>
 <div class="complete-banner">
 <div><h3 style="margin:0 0 4px">Complete Creator</h3><p style="margin:0;color:var(--muted);font-size:.92rem">All studios · Master Jarvis</p></div>
-<a class="btn btn-primary" href="workspace.html?studio=SUB-COMPLETE">Open Complete</a>
+<a class="btn btn-primary" href="https://cdn.jsdelivr.net/gh/Evank253/KCN_SINGULARITY_MASTER@main/docs/workspace.html?studio=SUB-COMPLETE">Open Complete</a>
 </div>
 <footer class="footer">Tools only · You are responsible for what you build</footer>
 </div>
 <script>
+const BASE='https://cdn.jsdelivr.net/gh/Evank253/KCN_SINGULARITY_MASTER@main/docs/';
 const STUDIOS=[
 {id:'SUB-BUILD',name:'Build & Habitat',icon:'🏗️',color:'linear-gradient(135deg,#3d6b4f,#1a2a22)',blurb:'Architecture, interiors, construction, infrastructure, landscaping.',jarvis:'Build Jarvis'},
 {id:'SUB-AUTO',name:'Automotive',icon:'🚗',color:'linear-gradient(135deg,#4a5a8a,#1a1e30)',blurb:'Cars, trucks, EV, chassis and powertrain.',jarvis:'Auto Jarvis'},
@@ -45,7 +46,7 @@ const STUDIOS=[
 {id:'SUB-ROBOTICS',name:'Robotics & RC',icon:'🤖',color:'linear-gradient(135deg,#6a4a3a,#241818)',blurb:'Robots, RC, mechatronics.',jarvis:'Robotics Jarvis'},
 {id:'SUB-SOFTWARE',name:'Software Engineering',icon:'💻',color:'linear-gradient(135deg,#2a5a6a,#141e24)',blurb:'Apps, websites, APIs.',jarvis:'Code Jarvis'}
 ];
-document.getElementById('grid').innerHTML=STUDIOS.map(s=>`<article class="studio-card"><div class="studio-icon" style="background:${s.color}">${s.icon}</div><h2>${s.name}</h2><p>${s.blurb}</p><div class="studio-meta"><span class="jarvis-tag">${s.jarvis}</span><a class="btn btn-primary" href="workspace.html?studio=${s.id}">Enter studio</a></div></article>`).join('');
+document.getElementById('grid').innerHTML=STUDIOS.map(s=>`<article class="studio-card"><div class="studio-icon" style="background:${s.color}">${s.icon}</div><h2>${s.name}</h2><p>${s.blurb}</p><div class="studio-meta"><span class="jarvis-tag">${s.jarvis}</span><a class="btn btn-primary" href="${BASE}workspace.html?studio=${s.id}">Enter studio</a></div></article>`).join('');
 </script>
 </body>
 </html>
