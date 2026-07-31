@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Workspace — KCN</title>
+<style>
+:root{--bg:#06090f;--card:#121a24;--border:#2a3648;--text:#eef3fa;--muted:#93a0b4;--accent:#4d9fff;--accent2:#7b6cff;--font:system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;font-family:var(--font);background:radial-gradient(900px 500px at 10% -10%,#1a2a4a 0%,transparent 55%),var(--bg);color:var(--text);min-height:100vh}
+.container{width:min(1120px,92vw);margin:0 auto}.nav{display:flex;justify-content:space-between;padding:16px 0;align-items:center}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--text);text-decoration:none}
+.brand-mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#061018;font-weight:900}
+.btn{display:inline-flex;padding:11px 18px;border-radius:12px;font-weight:700;text-decoration:none}
+.btn-ghost{border:1px solid var(--border);color:var(--text)}.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px}
+a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="container">
+<nav class="nav">
+  <a class="brand" href="index.html"><span class="brand-mark">K</span> KCN</a>
+  <a href="index.html">← All studios</a>
+</nav>
+<section style="padding:20px 0">
+  <h2 id="title">Studio workspace</h2>
+  <p style="color:var(--muted)" id="info"></p>
+  <div class="card" style="margin-top:16px">
+    <p style="color:var(--muted)">Project canvas and Jarvis side panel will live here next.</p>
+    <p style="margin-top:14px"><a class="btn btn-ghost" href="index.html">Back to studios</a></p>
+  </div>
+</section>
+</div>
+<script>
+const studio=new URLSearchParams(location.search).get('studio')||'SUB-BUILD';
+const names={SUB-BUILD:'Build & Habitat',SUB-AUTO:'Automotive',SUB-MARINE:'Marine',SUB-AERO:'Aerospace',SUB-ROBOTICS:'Robotics & RC',SUB-SOFTWARE:'Software Engineering',SUB-COMPLETE:'Complete Creator'};
+document.getElementById('title').textContent=(names[studio]||studio)+' workspace';
+document.getElementById('info').textContent='Studio: '+studio;
+</script>
+</body>
+</html>

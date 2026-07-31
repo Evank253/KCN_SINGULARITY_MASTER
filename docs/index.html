@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>KCN Studios</title>
+<style>
+:root{--bg:#06090f;--card:#121a24;--border:#2a3648;--text:#eef3fa;--muted:#93a0b4;--accent:#4d9fff;--accent2:#7b6cff;--jarvis:#c4a5ff;--font:system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;font-family:var(--font);background:radial-gradient(900px 500px at 10% -10%,#1a2a4a 0%,transparent 55%),var(--bg);color:var(--text);min-height:100vh;line-height:1.5}
+.container{width:min(1120px,92vw);margin:0 auto}.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;flex-wrap:wrap;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--text);text-decoration:none}
+.brand-mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#061018;font-weight:900}
+.btn{display:inline-flex;align-items:center;padding:11px 18px;border-radius:12px;border:0;font-weight:700;cursor:pointer;text-decoration:none;font-size:.95rem}
+.btn-primary{background:linear-gradient(135deg,var(--accent),#3a7fe0);color:#061018}
+h1{font-size:1.75rem;margin:8px 0 6px}.sub{color:var(--muted);margin:0 0 12px}
+.studio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:18px}
+.studio-card{background:linear-gradient(165deg,#182231,#121a24);border:1px solid var(--border);border-radius:16px;padding:20px 18px 16px;display:flex;flex-direction:column;min-height:220px;transition:border-color .15s,transform .15s}
+.studio-card:hover{border-color:#4a6a9a;transform:translateY(-2px)}
+.studio-icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:1.35rem;margin-bottom:12px}
+.studio-card h2{margin:0 0 6px;font-size:1.15rem}.studio-card p{margin:0;color:var(--muted);font-size:.9rem;flex:1}
+.studio-meta{display:flex;align-items:center;justify-content:space-between;margin-top:14px;gap:8px;flex-wrap:wrap}
+.jarvis-tag{font-size:.75rem;color:var(--jarvis);background:#1a1528;border:1px solid #3a2f55;padding:4px 10px;border-radius:999px}
+.complete-banner{margin:20px 0;background:linear-gradient(120deg,#1a2040,#241838);border:1px solid #3a4a7a;border-radius:16px;padding:20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.footer{margin-top:40px;padding:24px 0;border-top:1px solid var(--border);color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="container">
+<nav class="nav"><a class="brand" href="index.html"><span class="brand-mark">K</span> KCN Studios</a></nav>
+<h1>Choose your studio</h1>
+<p class="sub">Enter a domain workspace. Jarvis coaches inside each studio.</p>
+<div class="studio-grid" id="grid"></div>
+<div class="complete-banner">
+  <div>
+    <h3 style="margin:0 0 4px">Complete Creator</h3>
+    <p style="margin:0;color:var(--muted);font-size:.92rem">All studios unlocked · Master Jarvis</p>
+  </div>
+  <a class="btn btn-primary" href="workspace.html?studio=SUB-COMPLETE">Open Complete</a>
+</div>
+<footer class="footer">Tools only · You are responsible for what you build</footer>
+</div>
+<script>
+const STUDIOS=[
+  {id:'SUB-BUILD',name:'Build & Habitat',icon:'🏗️',color:'linear-gradient(135deg,#3d6b4f,#1a2a22)',blurb:'Architecture, interiors, construction planning, infrastructure, landscaping.',jarvis:'Build Jarvis'},
+  {id:'SUB-AUTO',name:'Automotive',icon:'🚗',color:'linear-gradient(135deg,#4a5a8a,#1a1e30)',blurb:'Cars, trucks, motorcycles, EV systems, chassis and powertrain concepts.',jarvis:'Auto Jarvis'},
+  {id:'SUB-MARINE',name:'Marine',icon:'🚢',color:'linear-gradient(135deg,#2a6a8a,#142028)',blurb:'Boats, yachts, ships, and submarine concept design.',jarvis:'Marine Jarvis'},
+  {id:'SUB-AERO',name:'Aerospace',icon:'✈️',color:'linear-gradient(135deg,#5a4a9a,#1e1830)',blurb:'Planes, drones, and aircraft system framing.',jarvis:'Aero Jarvis'},
+  {id:'SUB-ROBOTICS',name:'Robotics & RC',icon:'🤖',color:'linear-gradient(135deg,#6a4a3a,#241818)',blurb:'Robots, RC platforms, mechatronics, and control concepts.',jarvis:'Robotics Jarvis'},
+  {id:'SUB-SOFTWARE',name:'Software Engineering',icon:'💻',color:'linear-gradient(135deg,#2a5a6a,#141e24)',blurb:'Apps, websites, APIs, and computer science workflows.',jarvis:'Code Jarvis'}
+];
+document.getElementById('grid').innerHTML=STUDIOS.map(s=>`
+<article class="studio-card">
+  <div class="studio-icon" style="background:${s.color}">${s.icon}</div>
+  <h2>${s.name}</h2>
+  <p>${s.blurb}</p>
+  <div class="studio-meta">
+    <span class="jarvis-tag">${s.jarvis}</span>
+    <a class="btn btn-primary" href="workspace.html?studio=${s.id}">Enter studio</a>
+  </div>
+</article>`).join('');
+</script>
+</body>
+</html>
