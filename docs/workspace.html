@@ -4,33 +4,139 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Workspace — KCN</title>
-<style>
-:root{--bg:#06090f;--card:#121a24;--border:#2a3648;--text:#eef3fa;--muted:#93a0b4;--accent:#4d9fff;--accent2:#7b6cff;--font:system-ui,sans-serif}
-*{box-sizing:border-box}body{margin:0;font-family:var(--font);background:radial-gradient(900px 500px at 10% -10%,#1a2a4a 0%,transparent 55%),var(--bg);color:var(--text);min-height:100vh}
-.container{width:min(1120px,92vw);margin:0 auto}.nav{display:flex;justify-content:space-between;padding:16px 0;align-items:center}
-.brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--text);text-decoration:none}
-.brand-mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#061018;font-weight:900}
-.btn{display:inline-flex;padding:11px 18px;border-radius:12px;font-weight:700;text-decoration:none;border:1px solid var(--border);color:var(--text)}
-.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px}a{color:var(--accent)}
-</style>
+<link rel="stylesheet" href="app.css"/>
 </head>
 <body>
 <div class="container">
-<nav class="nav"><a class="brand" href="index.html"><span class="brand-mark">K</span> KCN</a><a href="index.html">← All studios</a></nav>
-<section style="padding:20px 0">
-<h2 id="title">Studio workspace</h2>
-<p style="color:var(--muted)" id="info"></p>
-<div class="card" style="margin-top:16px">
-<p style="color:var(--muted)">Project canvas + Jarvis panel come next.</p>
-<p style="margin-top:14px"><a class="btn" href="index.html">Back to studios</a></p>
-</div>
+<nav class="nav">
+  <a class="brand" href="index.html"><span class="brand-mark">K</span> KCN</a>
+  <div class="nav-links">
+    <a href="studios.html">← All studios</a>
+    <a href="pricing.html">Pricing</a>
+  </div>
+</nav>
+<section class="section">
+  <h2 id="title">Workspace</h2>
+  <p class="sub" id="subtitle">Follow steps, write notes, get Jarvis ratings.</p>
+  <div class="workspace-layout">
+    <div id="steps"></div>
+    <div class="card panel">
+      <h3 style="margin:0 0 8px">Jarvis panel</h3>
+      <p style="color:var(--muted);font-size:.88rem;margin:0 0 10px" id="jarvisName">—</p>
+      <div id="panelMsg" class="jarvis-box">Pick a step, add notes, then rate. I will comment on clarity, constraints, and tradeoffs.</div>
+      <p class="legal">Commentary only — not certified engineering advice. You are responsible for what you build.</p>
+    </div>
+  </div>
 </section>
+<footer class="footer">Tools only · Your builds, your responsibility</footer>
 </div>
 <script>
-const studio=new URLSearchParams(location.search).get('studio')||'SUB-BUILD';
-const names={SUB-BUILD:'Build & Habitat',SUB-AUTO:'Automotive',SUB-MARINE:'Marine',SUB-AERO:'Aerospace',SUB-ROBOTICS:'Robotics & RC',SUB-SOFTWARE:'Software Engineering',SUB-COMPLETE:'Complete Creator'};
-document.getElementById('title').textContent=(names[studio]||studio)+' workspace';
-document.getElementById('info').textContent='Studio: '+studio;
+const META = {
+  'SUB-BUILD': { name:'Build & Habitat', jarvis:'Build Jarvis', steps:[
+    {id:1,name:'Program & site',instruction:'Define users, rooms, site constraints, and goals.',comment:'Start with who lives here and what the site allows. Constraints first.'},
+    {id:2,name:'Layout concept',instruction:'Sketch zones: public, private, service, outdoor.',comment:'Circulation should be short and clear. Avoid dead-end rooms.'},
+    {id:3,name:'Structure idea',instruction:'Note spans, levels, and load path assumptions.',comment:'Keep spans realistic. Call out anything that needs an engineer later.'},
+    {id:4,name:'Materials & systems',instruction:'Pick envelope, finishes, HVAC/plumbing direction.',comment:'Trade cost vs durability. Note climate-driven choices.'},
+    {id:5,name:'Review package',instruction:'Summarize risks, open questions, next professional checks.',comment:'List what still needs code, engineer, or permit review.'}
+  ]},
+  'SUB-AUTO': { name:'Automotive', jarvis:'Auto Jarvis', steps:[
+    {id:1,name:'Mission profile',instruction:'Define vehicle type, payload, range, and use case.',comment:'Mission drives packaging. Be specific about duty cycle.'},
+    {id:2,name:'Architecture',instruction:'Layout: ICE/EV, wheelbase, seating, storage.',comment:'Balance mass, center of gravity, and packaging conflicts.'},
+    {id:3,name:'Powertrain concept',instruction:'Power source, drive, rough performance targets.',comment:'State assumptions. Safety margins matter.'},
+    {id:4,name:'Chassis & safety',instruction:'Structure, crash considerations, suspension sketch.',comment:'Flag anything that needs professional structural review.'},
+    {id:5,name:'Review',instruction:'Risks, tests, regulatory notes.',comment:'List validation steps before any real build.'}
+  ]},
+  'SUB-MARINE': { name:'Marine', jarvis:'Marine Jarvis', steps:[
+    {id:1,name:'Vessel mission',instruction:'Type, waters, range, crew, payload.',comment:'Mission and sea state define the hull.'},
+    {id:2,name:'Hull concept',instruction:'Length, form, stability notes.',comment:'Stability is non-negotiable. Note freeboard and draft.'},
+    {id:3,name:'Propulsion',instruction:'Power, props, energy storage.',comment:'Match power to displacement and duty.'},
+    {id:4,name:'Systems',instruction:'Safety, bilge, navigation, habitability.',comment:'Redundancy on critical systems.'},
+    {id:5,name:'Review',instruction:'Risks and surveyor/engineer checks.',comment:'Real vessels need certified review.'}
+  ]},
+  'SUB-AERO': { name:'Aerospace', jarvis:'Aero Jarvis', steps:[
+    {id:1,name:'Flight mission',instruction:'Aircraft class, range, payload, altitude.',comment:'Mission sets wing and power needs.'},
+    {id:2,name:'Configuration',instruction:'Layout: wing, prop/jet, control surfaces.',comment:'Keep CG and control authority in mind.'},
+    {id:3,name:'Structures sketch',instruction:'Primary structure and materials direction.',comment:'Loads are serious — mark what needs analysis.'},
+    {id:4,name:'Systems',instruction:'Power, avionics, safety.',comment:'Redundancy and failure modes matter.'},
+    {id:5,name:'Review',instruction:'Risks, certification path notes.',comment:'Not flight-ready without proper engineering.'}
+  ]},
+  'SUB-ROBOTICS': { name:'Robotics & RC', jarvis:'Robotics Jarvis', steps:[
+    {id:1,name:'Task definition',instruction:'What the robot must do, environment, constraints.',comment:'Task clarity beats fancy hardware.'},
+    {id:2,name:'Kinematics',instruction:'DOF, actuators, workspace.',comment:'Keep degrees of freedom minimal for the job.'},
+    {id:3,name:'Sensing & control',instruction:'Sensors, control loop, safety stops.',comment:'Always define a safe stop condition.'},
+    {id:4,name:'Power & structure',instruction:'Battery, frame, thermal.',comment:'Mass budget early.'},
+    {id:5,name:'Test plan',instruction:'Bench tests before field.',comment:'Prove each subsystem before integration.'}
+  ]},
+  'SUB-SOFTWARE': { name:'Software Engineering', jarvis:'Code Jarvis', steps:[
+    {id:1,name:'Problem & users',instruction:'Who is this for and what job does it do?',comment:'Write the user story in one sentence.'},
+    {id:2,name:'Architecture',instruction:'Modules, data, APIs, hosting sketch.',comment:'Separate concerns. Keep the core small.'},
+    {id:3,name:'Data model',instruction:'Entities, relationships, storage.',comment:'Model the real world first, then optimize.'},
+    {id:4,name:'Security & ops',instruction:'Auth, secrets, monitoring, backups.',comment:'Threat model the obvious paths.'},
+    {id:5,name:'Ship checklist',instruction:'Tests, rollout, rollback.',comment:'Define done: tests green + rollback path.'}
+  ]},
+  'SUB-COMPLETE': { name:'Complete Creator', jarvis:'Master Jarvis', steps:[
+    {id:1,name:'Vision',instruction:'What are you creating and for whom?',comment:'One clear outcome beats ten vague ideas.'},
+    {id:2,name:'Domain mix',instruction:'Which studios do you need this week?',comment:'Sequence work: concept → constraints → build.'},
+    {id:3,name:'Risk map',instruction:'Technical, legal, safety, cost risks.',comment:'Name the top three risks and owners.'},
+    {id:4,name:'Prototype plan',instruction:'Smallest testable version.',comment:'Ship a slice, learn, then expand.'},
+    {id:5,name:'Next experts',instruction:'Who must review before real-world use?',comment:'Know when to call professionals.'}
+  ]}
+};
+function rateNotes(notes) {
+  let score = 4;
+  const breakdown = [];
+  const t = (notes || '').trim();
+  const len = t.length;
+  if (len > 40) { score += 1; breakdown.push({d:'Detail length',delta:+1}); }
+  if (len > 120) { score += 1; breakdown.push({d:'Rich notes',delta:+1}); }
+  if (len < 15) { score -= 1; breakdown.push({d:'Too short',delta:-1}); }
+  const signals = [
+    [/because|since|so that/i, 'Reasoning', 1],
+    [/constraint|limit|budget|cost/i, 'Constraints', 1],
+    [/safety|risk|fail|margin/i, 'Safety/risk', 1],
+    [/user|customer|crew|pilot|driver/i, 'User focus', 1],
+    [/test|validate|measure/i, 'Testing', 1],
+    [/trade.?off|vs\.|versus|alternative/i, 'Tradeoffs', 1]
+  ];
+  signals.forEach(([re, label, d]) => {
+    if (re.test(t)) { score += d; breakdown.push({d:label, delta:+d}); }
+  });
+  score = Math.max(1, Math.min(10, score));
+  let commentary = score >= 8
+    ? 'Strong notes — constraints and reasoning are visible. Keep refining risks.'
+    : score >= 5
+    ? 'Solid start. Add constraints, tradeoffs, and what you will test next.'
+    : 'Too thin. Write goals, constraints, and one concrete decision.';
+  return { score, breakdown, commentary };
+}
+const studio = new URLSearchParams(location.search).get('studio') || 'SUB-BUILD';
+const data = META[studio] || META['SUB-BUILD'];
+document.getElementById('title').textContent = data.name + ' workspace';
+document.getElementById('subtitle').textContent = 'Studio: ' + studio;
+document.getElementById('jarvisName').textContent = data.jarvis;
+document.getElementById('steps').innerHTML = data.steps.map(s => `
+  <div class="step" id="step-${s.id}">
+    <h3 style="margin:0 0 6px">Step ${s.id}: ${s.name}</h3>
+    <p style="color:var(--muted);margin:0 0 8px">${s.instruction}</p>
+    <div class="jarvis-box"><strong>${data.jarvis}:</strong> ${s.comment}</div>
+    <label>Your notes</label>
+    <textarea rows="3" id="notes-${s.id}" placeholder="Decisions, constraints, tradeoffs…"></textarea>
+    <button class="btn btn-primary" type="button" style="margin-top:10px" onclick="doRate(${s.id})">Get Jarvis rating</button>
+    <div id="rating-${s.id}"></div>
+  </div>
+`).join('');
+function doRate(id) {
+  const notes = document.getElementById('notes-' + id).value;
+  const r = rateNotes(notes);
+  const bd = r.breakdown.map(b => b.d + ' (' + (b.delta>=0?'+':'') + b.delta + ')').join(' · ');
+  document.getElementById('rating-' + id).innerHTML = `
+    <div class="jarvis-box" style="margin-top:10px">
+      <div class="score">${r.score} / 10</div>
+      <strong>${data.jarvis}:</strong> ${r.commentary}
+      <div style="margin-top:8px;font-size:.82rem;color:var(--muted)">${bd || 'No signal bonuses yet'}</div>
+    </div>`;
+  document.getElementById('panelMsg').innerHTML = `<strong>${data.jarvis}:</strong> Step ${id} scored <span class="score" style="font-size:1rem">${r.score}/10</span>. ${r.commentary}`;
+}
 </script>
 </body>
 </html>
