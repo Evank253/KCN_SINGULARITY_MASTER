@@ -1,42 +1,14 @@
-name: Deploy KCN Studio to GitHub Pages
+- name: Setup Pages
+  if: github.ref == 'refs/heads/main'
+  uses: actions/configure-pages@v5
 
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
+- name: Upload docs folder
+  if: github.ref == 'refs/heads/main'
+  uses: actions/upload-pages-artifact@v3
+  with:
+    path: docs
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
-
-jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload docs folder
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: docs
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+- name: Deploy to GitHub Pages
+  if: github.ref == 'refs/heads/main'
+  id: deployment
+  uses: actions/deploy-pages@v4
