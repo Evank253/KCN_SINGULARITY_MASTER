@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Studios — KCN</title>
+<link rel="stylesheet" href="app.css"/>
+</head>
+<body>
+<div class="container">
+<nav class="nav">
+  <a class="brand" href="index.html"><span class="brand-mark">K</span> KCN Studios</a>
+  <div class="nav-links">
+    <a class="active" href="studios.html">Studios</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="index.html">Home</a>
+  </div>
+</nav>
+<section class="section">
+  <h2>Choose your studio</h2>
+  <p class="sub">Enter a domain workspace. Jarvis coaches inside each studio.</p>
+  <div class="studio-grid" id="grid"></div>
+  <div class="complete-banner">
+    <div>
+      <h3 style="margin:0 0 4px">Complete Creator</h3>
+      <p style="margin:0;color:var(--muted);font-size:.92rem">All domains · Master Jarvis</p>
+    </div>
+    <a class="btn btn-primary" href="workspace.html?studio=SUB-COMPLETE">Open Complete</a>
+  </div>
+</section>
+<footer class="footer">Tools only · You are responsible for what you build</footer>
+</div>
+<script>
+const STUDIOS=[
+  {id:'SUB-BUILD',name:'Build & Habitat',icon:'🏗️',color:'linear-gradient(135deg,#3d6b4f,#1a2a22)',blurb:'Architecture, interiors, construction, infrastructure, landscaping.',jarvis:'Build Jarvis'},
+  {id:'SUB-AUTO',name:'Automotive',icon:'🚗',color:'linear-gradient(135deg,#4a5a8a,#1a1e30)',blurb:'Cars, trucks, EV, chassis and powertrain concepts.',jarvis:'Auto Jarvis'},
+  {id:'SUB-MARINE',name:'Marine',icon:'🚢',color:'linear-gradient(135deg,#2a6a8a,#142028)',blurb:'Boats, yachts, ships, submarine concepts.',jarvis:'Marine Jarvis'},
+  {id:'SUB-AERO',name:'Aerospace',icon:'✈️',color:'linear-gradient(135deg,#5a4a9a,#1e1830)',blurb:'Planes, drones, aircraft system framing.',jarvis:'Aero Jarvis'},
+  {id:'SUB-ROBOTICS',name:'Robotics & RC',icon:'🤖',color:'linear-gradient(135deg,#6a4a3a,#241818)',blurb:'Robots, RC platforms, mechatronics.',jarvis:'Robotics Jarvis'},
+  {id:'SUB-SOFTWARE',name:'Software Engineering',icon:'💻',color:'linear-gradient(135deg,#2a5a6a,#141e24)',blurb:'Apps, websites, APIs, CS workflows.',jarvis:'Code Jarvis'}
+];
+document.getElementById('grid').innerHTML=STUDIOS.map(s=>`
+<article class="studio-card">
+  <div class="studio-icon" style="background:${s.color}">${s.icon}</div>
+  <h2>${s.name}</h2>
+  <p>${s.blurb}</p>
+  <div class="studio-meta">
+    <span class="jarvis-tag">${s.jarvis}</span>
+    <a class="btn btn-primary" href="workspace.html?studio=${s.id}">Enter studio</a>
+  </div>
+</article>`).join('');
+</script>
+</body>
+</html>

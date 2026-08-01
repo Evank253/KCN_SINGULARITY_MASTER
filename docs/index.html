@@ -3,50 +3,38 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>KCN Studios</title>
-<style>
-:root{--bg:#06090f;--border:#2a3648;--text:#eef3fa;--muted:#93a0b4;--accent:#4d9fff;--accent2:#7b6cff;--jarvis:#c4a5ff;--font:system-ui,sans-serif}
-*{box-sizing:border-box}body{margin:0;font-family:var(--font);background:radial-gradient(900px 500px at 10% -10%,#1a2a4a 0%,transparent 55%),var(--bg);color:var(--text);min-height:100vh;line-height:1.5}
-.container{width:min(1120px,92vw);margin:0 auto}.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
-.brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--text);text-decoration:none}
-.brand-mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#061018;font-weight:900}
-.btn{display:inline-flex;align-items:center;padding:11px 18px;border-radius:12px;border:0;font-weight:700;text-decoration:none;font-size:.95rem}
-.btn-primary{background:linear-gradient(135deg,var(--accent),#3a7fe0);color:#061018}
-h1{font-size:1.75rem;margin:8px 0 6px}.sub{color:var(--muted);margin:0 0 12px}
-.studio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:18px}
-.studio-card{background:linear-gradient(165deg,#182231,#121a24);border:1px solid var(--border);border-radius:16px;padding:20px 18px 16px;display:flex;flex-direction:column;min-height:220px}
-.studio-card:hover{border-color:#4a6a9a}
-.studio-icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:1.35rem;margin-bottom:12px}
-.studio-card h2{margin:0 0 6px;font-size:1.15rem}.studio-card p{margin:0;color:var(--muted);font-size:.9rem;flex:1}
-.studio-meta{display:flex;align-items:center;justify-content:space-between;margin-top:14px;gap:8px;flex-wrap:wrap}
-.jarvis-tag{font-size:.75rem;color:var(--jarvis);background:#1a1528;border:1px solid #3a2f55;padding:4px 10px;border-radius:999px}
-.complete-banner{margin:20px 0;background:linear-gradient(120deg,#1a2040,#241838);border:1px solid #3a4a7a;border-radius:16px;padding:20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.footer{margin-top:40px;padding:24px 0;border-top:1px solid var(--border);color:var(--muted);font-size:.85rem}
-</style>
+<title>KCN Singularity</title>
+<link rel="stylesheet" href="app.css"/>
 </head>
 <body>
 <div class="container">
-<nav class="nav"><a class="brand" href="https://cdn.jsdelivr.net/gh/Evank253/KCN_SINGULARITY_MASTER@main/docs/index.html"><span class="brand-mark">K</span> KCN Studios</a></nav>
-<h1>Choose your studio</h1>
-<p class="sub">Enter a domain workspace. Jarvis coaches inside each studio.</p>
-<div class="studio-grid" id="grid"></div>
-<div class="complete-banner">
-<div><h3 style="margin:0 0 4px">Complete Creator</h3><p style="margin:0;color:var(--muted);font-size:.92rem">All studios · Master Jarvis</p></div>
-<a class="btn btn-primary" href="https://cdn.jsdelivr.net/gh/Evank253/KCN_SINGULARITY_MASTER@main/docs/workspace.html?studio=SUB-COMPLETE">Open Complete</a>
+<nav class="nav">
+  <a class="brand" href="index.html"><span class="brand-mark">K</span> KCN Singularity</a>
+  <div class="nav-links">
+    <a href="studios.html">Studios</a>
+    <a href="pricing.html">Pricing</a>
+    <a class="btn btn-primary" href="studios.html">Open studios</a>
+  </div>
+</nav>
+<section class="hero">
+  <div class="pill-row">
+    <span class="pill">Domain studios</span>
+    <span class="pill">Jarvis coach</span>
+    <span class="pill">Tools only — you own what you build</span>
+  </div>
+  <h1>Build homes, vehicles, vessels, aircraft, robots, and software — with Jarvis beside you.</h1>
+  <p class="lead">Pick a studio, follow build steps, write your notes, and get live Jarvis commentary and ratings as you design.</p>
+  <div class="actions">
+    <a class="btn btn-primary" href="studios.html">Enter studios</a>
+    <a class="btn btn-ghost" href="workspace.html?studio=SUB-BUILD">Try Build studio</a>
+  </div>
+  <div class="grid-3">
+    <div class="card"><h3>6 domain studios</h3><p>Build, Auto, Marine, Aero, Robotics, Software — each with its own Jarvis.</p></div>
+    <div class="card"><h3>Working workspace</h3><p>Step-by-step build flow, notes, and transparent 1–10 ratings.</p></div>
+    <div class="card"><h3>You stay in control</h3><p>KCN is tools only. You are responsible for designs and outcomes.</p></div>
+  </div>
+</section>
+<footer class="footer"><div class="footer-grid"><div>KCN Singularity · Tools only</div><div><a href="studios.html">Studios</a> · <a href="pricing.html">Pricing</a></div></div></footer>
 </div>
-<footer class="footer">Tools only · You are responsible for what you build</footer>
-</div>
-<script>
-const BASE='https://cdn.jsdelivr.net/gh/Evank253/KCN_SINGULARITY_MASTER@main/docs/';
-const STUDIOS=[
-{id:'SUB-BUILD',name:'Build & Habitat',icon:'🏗️',color:'linear-gradient(135deg,#3d6b4f,#1a2a22)',blurb:'Architecture, interiors, construction, infrastructure, landscaping.',jarvis:'Build Jarvis'},
-{id:'SUB-AUTO',name:'Automotive',icon:'🚗',color:'linear-gradient(135deg,#4a5a8a,#1a1e30)',blurb:'Cars, trucks, EV, chassis and powertrain.',jarvis:'Auto Jarvis'},
-{id:'SUB-MARINE',name:'Marine',icon:'🚢',color:'linear-gradient(135deg,#2a6a8a,#142028)',blurb:'Boats, yachts, ships, submarine concepts.',jarvis:'Marine Jarvis'},
-{id:'SUB-AERO',name:'Aerospace',icon:'✈️',color:'linear-gradient(135deg,#5a4a9a,#1e1830)',blurb:'Planes, drones, aircraft systems.',jarvis:'Aero Jarvis'},
-{id:'SUB-ROBOTICS',name:'Robotics & RC',icon:'🤖',color:'linear-gradient(135deg,#6a4a3a,#241818)',blurb:'Robots, RC, mechatronics.',jarvis:'Robotics Jarvis'},
-{id:'SUB-SOFTWARE',name:'Software Engineering',icon:'💻',color:'linear-gradient(135deg,#2a5a6a,#141e24)',blurb:'Apps, websites, APIs.',jarvis:'Code Jarvis'}
-];
-document.getElementById('grid').innerHTML=STUDIOS.map(s=>`<article class="studio-card"><div class="studio-icon" style="background:${s.color}">${s.icon}</div><h2>${s.name}</h2><p>${s.blurb}</p><div class="studio-meta"><span class="jarvis-tag">${s.jarvis}</span><a class="btn btn-primary" href="${BASE}workspace.html?studio=${s.id}">Enter studio</a></div></article>`).join('');
-</script>
 </body>
 </html>
